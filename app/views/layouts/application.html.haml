@@ -1,0 +1,24 @@
+!!! 5
+%html
+  %head
+    %title High Priest
+    %meta(charset="utf-8")
+    = stylesheet_link_tag("application", :media => "all")
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+  %body
+    - if user_signed_in?
+      Signed in as
+      = link_to current_user.username, edit_user_registration_path
+      = link_to "Sign out", destroy_user_session_path, method: :delete
+    - else
+      = link_to "Sign in", new_user_session_path
+      = link_to "Sign up", new_user_registration_path
+
+    - if flash[:notice]
+      #notice= flash[:notice]
+    - if flash[:error] || flash[:alert]
+      #error= flash[:error] || flash[:alert]
+
+    = yield
